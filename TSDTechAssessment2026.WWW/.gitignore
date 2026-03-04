@@ -471,15 +471,19 @@ umbraco-package-schema.json
 /umbraco/Data/TEMP/
 
 # SQLite database files
-/umbraco/Data/*.sqlite.db
-/umbraco/Data/*.sqlite.db-shm
-/umbraco/Data/*.sqlite.db-wal
+# NOTE: For this technical assessment, SQLite DB files are NOT ignored
+# so that content changes can be reviewed
+# /umbraco/Data/*.sqlite.db
+# /umbraco/Data/*.sqlite.db-shm
+# /umbraco/Data/*.sqlite.db-wal
 
 # Log files
 /umbraco/Logs/
 
 # Media files
-/wwwroot/media/
+# NOTE: For this technical assessment, media files are NOT ignored
+# so that uploaded images can be reviewed
+# /wwwroot/media/
 
 # Node.js
 npm-debug.log*
