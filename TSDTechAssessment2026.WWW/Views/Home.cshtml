@@ -1,0 +1,7 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "Master.cshtml";
+}
+
+@await Html.GetBlockGridHtmlAsync(Model, "blockGrid")

@@ -1,4 +1,12 @@
+using TSDTechAssessment2026.WWW.Services;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient<ProductApiClient>(client =>
+{
+    client.BaseAddress = new Uri(
+        builder.Configuration["ProductApi:BaseUrl"] ?? "http://localhost:5266");
+});
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
@@ -10,6 +18,7 @@ WebApplication app = builder.Build();
 
 await app.BootUmbracoAsync();
 
+app.UseStaticFiles();
 
 app.UseUmbraco()
     .WithMiddleware(u =>

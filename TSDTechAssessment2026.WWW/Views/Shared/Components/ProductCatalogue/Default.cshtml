@@ -1,0 +1,109 @@
+@model List<TSDTechAssessment2026.WWW.Models.ProductDto>
+@{
+    var heading = ViewBag.Heading as string;
+}
+
+@functions {
+    static string Stars(double rating)
+    {
+        var r = (int)Math.Round(rating);
+        return new string('\u2605', r) + new string('\u2606', 5 - r);
+    }
+
+    static string StockClass(TSDTechAssessment2026.WWW.Models.ProductDto p)
+    {
+        if (p.IsOutOfStock) return "product-card__stock--out-of-stock";
+        if (p.TotalStock <= 5) return "product-card__stock--low-stock";
+        return "product-card__stock--in-stock";
+    }
+}
+
+<section class="product-catalogue">
+    <div class="container">
+        @if (!string.IsNullOrWhiteSpace(heading))
+        {
+            <h2 class="product-catalogue__heading">@heading</h2>
+        }
+
+        @if (Model.Count == 0)
+        {
+            <p class="product-catalogue__empty">No products available at the moment.</p>
+        }
+        else
+        {
+            <div class="product-catalogue__grid">
+                @foreach (var product in Model)
+                {
+                    var cardClass = "product-card";
+                    if (!product.Active) cardClass += " product-card--discontinued";
+                    else if (product.IsOutOfStock) cardClass += " product-card--out-of-stock";
+
+                    <article class="@cardClass">
+                        <div class="product-card__image-wrap">
+                            @if (product.Images.Length > 0)
+                            {
+                                <img src="@product.Images[0]" alt="@product.Name" loading="lazy" />
+                            }
+                        </div>
+                        <div class="product-card__body">
+                            @if (!product.Active)
+                            {
+                                <span class="product-card__badge product-card__badge--discontinued">Discontinued</span>
+                            }
+                            else if (product.IsOutOfStock)
+                            {
+                                <span class="product-card__badge product-card__badge--out-of-stock">Out of Stock</span>
+                            }
+
+                            <span class="product-card__category">@product.Category</span>
+                            <h3 class="product-card__name">@product.Name</h3>
+                            <span class="product-card__brand">@product.Brand</span>
+
+                            <p class="product-card__description">@product.Description</p>
+
+                            <div class="product-card__rating">
+                                <span class="stars">@Stars(product.Rating)</span>
+                                <span class="count">(@product.ReviewCount)</span>
+                            </div>
+
+                            <div class="product-card__price">
+                                @if (product.HasVariantPricing)
+                                {
+                                    <span class="from-label">From </span>
+                                }
+                                <span>&pound;@product.DisplayPrice.ToString("F2")</span>
+                            </div>
+
+                            <div class="product-card__stock @StockClass(product)">
+                                @if (product.IsOutOfStock && product.Active)
+                                {
+                                    <span>Currently unavailable</span>
+                                }
+                                else if (!product.Active)
+                                {
+                                    <span>No longer available</span>
+                                }
+                                else if (product.TotalStock <= 5)
+                                {
+                                    <span>Only @product.TotalStock left</span>
+                                }
+                                else
+                                {
+                                    <span>In stock</span>
+                                }
+                            </div>
+
+                            @if (product.Variants is { Length: > 0 })
+                            {
+                                var activeCount = product.ActiveVariantCount;
+                                <span class="product-card__variants">
+                                    @activeCount @(activeCount == 1 ? "option" : "options") available
+                                </span>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </div>
+</section>

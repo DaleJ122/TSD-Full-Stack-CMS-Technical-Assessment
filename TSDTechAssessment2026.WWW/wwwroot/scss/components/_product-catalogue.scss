@@ -1,0 +1,230 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+.product-catalogue {
+    padding: $spacing-large 0;
+
+    &__heading {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: $spacing-large;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-medium;
+
+        @include respond-to(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to(lg) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond-to(xl) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    &__empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: $spacing-large * 2;
+        color: #888;
+        font-size: $font-size-large;
+    }
+}
+
+.product-card {
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    overflow: hidden;
+    background: $color-white;
+    display: flex;
+    flex-direction: column;
+    @include transition(box-shadow 0.2s ease, transform 0.2s ease);
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    &--discontinued {
+        opacity: 0.55;
+        border-color: #e74c3c;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    }
+
+    &--out-of-stock {
+        .product-card__image-wrap img {
+            filter: grayscale(30%);
+        }
+    }
+
+    &__image-wrap {
+        aspect-ratio: 4 / 3;
+        background: #f5f5f5;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            @include transition(transform 0.3s ease);
+        }
+
+        &:hover img {
+            transform: scale(1.04);
+        }
+    }
+
+    &__body {
+        padding: $spacing-unit;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    &__badge {
+        display: inline-block;
+        padding: 0.2em 0.55em;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: $spacing-small;
+        width: fit-content;
+
+        &--discontinued {
+            background: #e74c3c;
+            color: $color-white;
+        }
+
+        &--out-of-stock {
+            background: #f39c12;
+            color: $color-white;
+        }
+    }
+
+    &__category {
+        font-size: 0.7rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.2rem;
+    }
+
+    &__name {
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 0.2rem;
+    }
+
+    &__brand {
+        font-size: $font-size-small;
+        color: #777;
+        margin-bottom: $spacing-small;
+    }
+
+    &__description {
+        font-size: $font-size-small;
+        color: #666;
+        margin-bottom: $spacing-small;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.4;
+    }
+
+    &__rating {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: $spacing-small;
+        font-size: $font-size-small;
+
+        .stars {
+            color: #f5a623;
+            letter-spacing: 1px;
+        }
+
+        .count {
+            color: #aaa;
+            font-size: 0.78rem;
+        }
+    }
+
+    &__price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: auto;
+        padding-top: $spacing-small;
+
+        .from-label {
+            font-size: $font-size-small;
+            font-weight: 400;
+            color: #999;
+        }
+    }
+
+    &__stock {
+        font-size: 0.78rem;
+        margin-top: 0.3rem;
+
+        &--in-stock {
+            color: $color-secondary;
+        }
+
+        &--low-stock {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        &--out-of-stock {
+            color: #e74c3c;
+        }
+    }
+
+    &__variants {
+        font-size: 0.78rem;
+        color: #999;
+        margin-top: 0.15rem;
+    }
+}
+
+// header/footer
+.site-header {
+    background: $color-text;
+    padding: $spacing-unit 0;
+
+    &__logo {
+        color: $color-white;
+        font-weight: 700;
+        font-size: 1.25rem;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.9;
+        }
+    }
+}
+
+.site-footer {
+    background: #f8f8f8;
+    border-top: 1px solid $color-border;
+    padding: $spacing-unit 0;
+    margin-top: $spacing-large * 2;
+    text-align: center;
+    font-size: $font-size-small;
+    color: #999;
+}

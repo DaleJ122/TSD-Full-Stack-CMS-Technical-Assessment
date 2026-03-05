@@ -1,0 +1,31 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.Name</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="site-header__logo">TSD Store</a>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year TSD Store</p>
+        </div>
+    </footer>
+</body>
+</html>

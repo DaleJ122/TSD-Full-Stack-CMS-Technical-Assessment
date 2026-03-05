@@ -1,0 +1,11 @@
+@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@{
+    var heading = Model.Content.Value<string>("heading");
+    var category = Model.Content.Value<string>("categoryFilter");
+    var maxItems = Model.Content.Value<int?>("maxProducts");
+}
+
+@await Component.InvokeAsync("ProductCatalogue", new { heading, category, maxItems })
+
+@await Html.GetBlockGridItemAreasHtmlAsync(Model)
