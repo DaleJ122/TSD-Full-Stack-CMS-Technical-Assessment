@@ -4,8 +4,9 @@
     var heading = Model.Content.Value<string>("heading");
     var category = Model.Content.Value<string>("categoryFilter");
     var maxItems = Model.Content.Value<int?>("maxProducts");
+    var perPage = Model.Content.Value<int?>("productsPerPage");
 }
 
-@await Component.InvokeAsync("ProductCatalogue", new { heading, category, maxItems })
+@await Component.InvokeAsync("ProductCatalogue", new { heading, category, maxItems, perPage })
 
 @await Html.GetBlockGridItemAreasHtmlAsync(Model)

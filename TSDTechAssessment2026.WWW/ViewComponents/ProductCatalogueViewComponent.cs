@@ -8,7 +8,8 @@ public class ProductCatalogueViewComponent(ProductApiClient api) : ViewComponent
     public async Task<IViewComponentResult> InvokeAsync(
         string? heading = null,
         string? category = null,
-        int? maxItems = null)
+        int? maxItems = null,
+        int? perPage = null)
     {
         List<Models.ProductDto> products;
 
@@ -25,6 +26,7 @@ public class ProductCatalogueViewComponent(ProductApiClient api) : ViewComponent
             products = products.Take(maxItems.Value).ToList();
 
         ViewBag.Heading = heading;
+        ViewBag.PerPage = perPage is > 0 ? perPage.Value : 0;
         return View(products);
     }
 }

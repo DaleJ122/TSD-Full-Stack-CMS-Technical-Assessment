@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 
 app.UseCors();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // API only serves localhost over HTTP
 
 var productsPath = Path.Combine(app.Environment.ContentRootPath, "data", "products.json");
 var jsonOpts = new JsonSerializerOptions(JsonSerializerDefaults.Web);
